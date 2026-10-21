@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Applications | Placement Tracker</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+
+<body>
+
+    <nav>
+        <h2>Placement Tracker</h2>
+
+        <div>
+            <a href="/">Dashboard</a>
+            <a href="/applications">Applications</a>
+            <a href="/add">Add Application</a>
+        </div>
+    </nav>
+
+
+    <main>
+
+        <h1>Applications</h1>
+        <p>View and manage your placement and internship applications.</p>
+
+
+        <form method="GET" action="/applications" class="filter-form">
+
+    <input
+        type="text"
+        name="search"
+        placeholder="Search by company..."
+        value="{{ search }}"
+    >
+
+    <select name="status">
+        <option value="">All statuses</option>
+
+        <option value="interested"
+            {% if selected_status == "interested" %}selected{% endif %}>
+            Interested
+        </option>
+
+        <option value="applied"
+            {% if selected_status == "applied" %}selected{% endif %}>
+            Applied
+        </option>
+
+        <option value="assessment"
+            {% if selected_status == "assessment" %}selected{% endif %}>
+            Online Assessment
+        </option>
+
+        <option value="interview"
+            {% if selected_status == "interview" %}selected{% endif %}>
+            Interview
+        </option>
+
+        <option value="offer"
+            {% if selected_status == "offer" %}selected{% endif %}>
+            Offer
+        </option>
+
+        <option value="rejected"
+            {% if selected_status == "rejected" %}selected{% endif %}>
+            Rejected
+        </option>
+    </select>
+
+   <button type="submit">Search</button>
+
+<a href="/applications">Clear</a>
+
+</form>
+
+<table>
+
+            <thead>
+                <tr>
+                    <th>Company</th>
+                    <th>Role</th>
+                    <th>Location</th>
+                    <th>Deadline</th>
+                    <th>Status</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+
+            <tbody>
+
+                {% for application in applications %}
+
+                    <tr>
+                        <td>{{ application.company }}</td>
+                        <td>{{ application.role }}</td>
+                        <td>{{ application.location }}</td>
+                        <td>{{ application.deadline }}</td>
+                        <td>{{ application.status }}</td>
+
+
+                        <td>
+    <a href="/applications/edit/{{ application.id }}">Edit</a>
+
+    <form action="/applications/delete/{{ application.id }}"
+          method="POST"
+          style="display: inline;"
+          onsubmit="return confirm('Delete this application?');">
+
+        <button type="submit">Delete</button>
+
+    </form>
+</td>
+                    </tr>
+
+                {% endfor %}
+
+            </tbody>
+
+        </table>
+
+    </main>
+
+</body>
+
+</html>

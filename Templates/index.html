@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Placement Tracker</title>
+
+    <link rel="stylesheet"
+      href="{{ url_for('static', filename='css/style.css') }}">
+
+</head>
+
+<body>
+
+
+    <nav>
+    <h2>Placement Tracker</h2>
+
+    <div>
+        <a href="/">Dashboard</a>
+        <a href="/applications">Applications</a>
+        <a href="/add">Add Application</a>
+    </div>
+</nav>
+
+    <main>
+
+        <h1>Dashboard</h1>
+        <p>Track your placement and internship applications.</p>
+
+<section class="stats">
+
+    <div class="stat-card">
+        <h3>Total Applications</h3>
+        <p>{{ total_applications }}</p>
+    </div>
+
+    <div class="stat-card">
+        <h3>Interviews</h3>
+        <p>{{ interviews }}</p>
+    </div>
+
+    <div class="stat-card">
+        <h3>Offers</h3>
+        <p>{{ offers }}</p>
+    </div>
+
+</section>
+
+
+        <section class="applications">
+
+    <h2>Recent Applications</h2>
+
+    {% for application in applications %}
+
+        <div>
+            <h3>{{ application.company }}</h3>
+
+            <p>{{ application.role }}</p>
+            <p>{{ application.location }}</p>
+            <p>{{ application.deadline }}</p>
+            <p>{{ application.status }}</p>
+        </div>
+
+    {% endfor %}
+
+</section>
+
+
+    </main>
+
+</body>
+
+</html>

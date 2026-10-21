@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Edit Application | Placement Tracker</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+
+<body>
+
+    <nav>
+        <h2>Placement Tracker</h2>
+
+        <div>
+            <a href="/">Dashboard</a>
+            <a href="/applications">Applications</a>
+            <a href="/add">Add Application</a>
+        </div>
+    </nav>
+
+
+    <main>
+
+        <h1>Edit Application</h1>
+
+
+        <p>Update the details of your application.</p>
+
+        {% if error %}
+    <p class="error-message">{{ error }}</p>
+        {% endif %}
+
+        <form method="POST">
+
+            <label for="company">Company</label>
+            <input type="text"
+                   id="company"
+                   name="company"
+                   value="{{ application.company }}">
+
+            <label for="role">Role</label>
+            <input type="text"
+                   id="role"
+                   name="role"
+                   value="{{ application.role }}">
+
+            <label for="location">Location</label>
+            <input type="text"
+                   id="location"
+                   name="location"
+                   value="{{ application.location }}">
+
+            <label for="deadline">Application Deadline</label>
+            <input type="date"
+                   id="deadline"
+                   name="deadline"
+                   value="{{ application.deadline }}">
+
+            <label for="status">Application Status</label>
+
+            <select id="status" name="status">
+                   <option value="interested"
+        {% if application.status == "interested" %}selected{% endif %}>
+        Interested
+    </option>
+
+    <option value="applied"
+        {% if application.status == "applied" %}selected{% endif %}>
+        Applied
+    </option>
+
+    <option value="assessment"
+        {% if application.status == "assessment" %}selected{% endif %}>
+        Online Assessment
+    </option>
+
+   <option value="interview"
+    {% if application.status == "interview" %}selected{% endif %}>
+    Interview
+</option>
+
+    <option value="offer"
+        {% if application.status == "offer" %}selected{% endif %}>
+        Offer
+    </option>
+
+    <option value="rejected"
+        {% if application.status == "rejected" %}selected{% endif %}>
+        Rejected
+    </option>
+
+</select>
+
+            <button type="submit">Save Changes</button>
+
+        </form>
+
+    </main>
+
+</body>
+
+</html>
